@@ -9,7 +9,7 @@ const (
 	height     = 10
 	width      = 150
 	delay      = time.Second * 1 / 10
-	population = 1
+	population = 2
 
 	liveSymbol = "$"
 	deadSymbol = " "

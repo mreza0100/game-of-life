@@ -6,12 +6,12 @@ func isInRange(position int, Range int) bool {
 	return position < Range && position >= 0
 }
 
-func (world WorldT) getAndPluse(x, y int) int {
+func (world WorldT) isALiveSell(x, y int) int {
 	if !isInRange(x, height) || !isInRange(y, width) {
 		return 0
 	}
 
-	if world[x][y].alive {
+	if world[x][y] {
 		return 1
 	}
 

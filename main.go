@@ -6,9 +6,9 @@ import (
 
 // configs
 const (
-	height     = 10
-	width      = 150
-	delay      = time.Second * 1 / 10
+	height     = 130
+	width      = 680
+	delay      = 0
 	population = 2
 
 	liveSymbol = "$"
@@ -19,16 +19,11 @@ func rebuildWorld(prevWorld WorldT) WorldT {
 	newWorld := WorldT{}
 
 	for x, i := range prevWorld {
-		for y, j := range i {
-			newWorld[x][y] = SellT{
-				x: x,
-				y: y,
-			}
-
-			if j.alive {
-				newWorld[x][y].alive = j.canStayAlive(prevWorld)
+		for y, isALiveSell := range i {
+			if isALiveSell {
+				newWorld[x][y] = SellT(isALiveSell.canStayAlive(x, y, prevWorld))
 			} else {
-				newWorld[x][y].alive = j.canBeAlive(prevWorld)
+				newWorld[x][y] = SellT(isALiveSell.canBeAlive(x, y, prevWorld))
 			}
 
 		}

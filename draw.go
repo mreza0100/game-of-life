@@ -18,7 +18,7 @@ func getCurrentPopulation(world WorldT) int {
 
 	for _, i := range world {
 		for _, j := range i {
-			if j.alive {
+			if j {
 				sells++
 			}
 		}
@@ -29,23 +29,25 @@ func getCurrentPopulation(world WorldT) int {
 
 func draw(world WorldT) {
 	startFromTopTerminal()
-
 	rendredTimes++
-	fmt.Println("rendredTimes: ", rendredTimes)
-	fmt.Println("population: ", getCurrentPopulation(world))
-	fmt.Println()
+
+	{
+		fmt.Println("rendredTimes: ", rendredTimes)
+		fmt.Println("population: ", getCurrentPopulation(world))
+		fmt.Println()
+	}
 
 	for _, i := range world {
 		for _, j := range i {
 			symbol := deadSymbol
-			if j.alive {
+			if j {
 				symbol = liveSymbol
 			}
 
 			fmt.Print(symbol)
 		}
 
-		fmt.Print("                             |")
+		fmt.Print("             |")
 		fmt.Println()
 	}
 }

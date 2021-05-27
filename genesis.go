@@ -11,7 +11,7 @@ func genesis() WorldT {
 
 	for idx, i := range world {
 		for idx2 := range i {
-			world[idx][idx2] = rand.Intn(population) == 1
+			world[idx][idx2] = rand.Intn(initialPopulation) == 1
 		}
 	}
 

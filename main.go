@@ -8,8 +8,8 @@ import (
 const (
 	height     = 10
 	width      = 150
-	delay      = 0
-	population = 2
+	delay      = time.Second * 1 / 10
+	population = 1
 
 	liveSymbol = "$"
 	deadSymbol = " "

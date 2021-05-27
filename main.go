@@ -8,7 +8,7 @@ import (
 const (
 	width      = 40
 	height     = 40
-	delay      = time.Second * 1 / 2
+	delay      = 0
 	population = 2
 
 	liveSymbol = "$"

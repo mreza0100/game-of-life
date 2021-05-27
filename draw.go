@@ -11,10 +11,31 @@ func startFromTopTerminal() {
 	fmt.Print("\033[H")
 }
 
-func draw(data WorldT) {
+var rendredTimes int
+
+func getCurrentPopulation(world WorldT) int {
+	sells := 0
+
+	for _, i := range world {
+		for _, j := range i {
+			if j.alive {
+				sells++
+			}
+		}
+	}
+
+	return sells
+}
+
+func draw(world WorldT) {
 	startFromTopTerminal()
 
-	for _, i := range data {
+	rendredTimes++
+	fmt.Println("rendredTimes: ", rendredTimes)
+	fmt.Println("population: ", getCurrentPopulation(world))
+	fmt.Println()
+
+	for _, i := range world {
 		for _, j := range i {
 			p := deadSymbol
 

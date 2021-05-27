@@ -6,9 +6,9 @@ import (
 
 // configs
 const (
-	width      = 40
-	height     = 40
-	delay      = time.Second * 1 / 10
+	height     = 10
+	width      = 150
+	delay      = 0
 	population = 2
 
 	liveSymbol = "$"

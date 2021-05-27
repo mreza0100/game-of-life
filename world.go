@@ -1,13 +1,13 @@
 package main
 
-type WorldT [width][height]SellT
+type WorldT [height][width]SellT
 
 func isInRange(position int, Range int) bool {
 	return position < Range && position >= 0
 }
 
 func (world WorldT) getAndPluse(x, y int) int {
-	if !isInRange(x, width) || !isInRange(y, height) {
+	if !isInRange(x, height) || !isInRange(y, width) {
 		return 0
 	}
 

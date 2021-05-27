@@ -37,13 +37,12 @@ func draw(world WorldT) {
 
 	for _, i := range world {
 		for _, j := range i {
-			p := deadSymbol
-
+			symbol := deadSymbol
 			if j.alive {
-				p = liveSymbol
+				symbol = liveSymbol
 			}
 
-			fmt.Print(p)
+			fmt.Print(symbol)
 		}
 
 		fmt.Print("                             |")

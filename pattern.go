@@ -47,18 +47,6 @@ func isRepeatedPattern(newWorld WorldT) bool {
 
 func randomInt(min, max int) int { return rand.Intn(max-min) + min }
 
-func getRandomLocations() [][2]int {
-	allSells := width * height
-
-	locations := make([][2]int, 0, randomInt(0, allSells))
-
-	for i := 0; i < randomInt(0, allSells); i++ {
-		locations = append(locations, [2]int{randomInt(0, height-1), randomInt(0, width-1)})
-	}
-
-	return locations
-}
-
 func margeWorlds(world1, world2 WorldT) WorldT {
 	for x, i := range world1 {
 		for y, j := range i {
@@ -72,11 +60,7 @@ func margeWorlds(world1, world2 WorldT) WorldT {
 }
 
 func injectSells(repeatedWorlds WorldT) WorldT {
-	randomWorld := WorldT{}
-
-	for _, i := range getRandomLocations() {
-		randomWorld[i[0]][i[1]] = true
-	}
+	randomWorld := genesis(initialPopulation * 4)
 
 	return margeWorlds(randomWorld, repeatedWorlds)
 }

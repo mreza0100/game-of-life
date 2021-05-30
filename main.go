@@ -34,7 +34,7 @@ func rebuildWorld(prevWorld WorldT) WorldT {
 }
 
 func main() {
-	world := genesis()
+	world := genesis(initialPopulation)
 	draw(world)
 
 	for {

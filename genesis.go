@@ -6,7 +6,7 @@ import (
 )
 
 func init() { rand.Seed(time.Now().Unix()) }
-func genesis() WorldT {
+func genesis(initialPopulation int) WorldT {
 	world := WorldT{}
 
 	for x, i := range world {

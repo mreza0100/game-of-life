@@ -15,7 +15,7 @@ const (
 
 	// must be 1 > initialPopulation
 	// closer to 1 = more initialPopulation
-	initialPopulation = 20
+	initialPopulation = 2
 
 	// size of "detectRepeatedPatterns" for detecting
 	// repeated patterns more number = slower render

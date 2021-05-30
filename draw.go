@@ -38,16 +38,22 @@ func frameTicker() {
 	}
 }
 
+func getRuntime() string {
+	since := time.Since(startedTime)
+	return fmt.Sprintf("%vH : %vM : %vS   ", int(since.Hours()), int(since.Minutes())%60, int(since.Seconds())%60)
+}
+
 func init() { clearTerminal(); go frameTicker(); startedTime = time.Now() }
 
 func draw(world WorldT) {
 	startFromTopTerminal()
+
 	rendredTimes++
 
 	{
 		fmt.Println("rendredTimes     : ", rendredTimes)
 		fmt.Println("population       : ", world.countLives())
-		fmt.Println("runtime          : ", time.Since(startedTime))
+		fmt.Println("runtime          : ", getRuntime())
 		fmt.Println("frame per second : ", framePerSecond)
 		fmt.Print("\n")
 	}

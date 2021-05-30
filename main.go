@@ -5,28 +5,14 @@ import (
 	"time"
 )
 
-// configs
-const (
-	height = 30
-	width  = 50
-	delay  = time.Second * 1
-	// must be (1 > initialPopulation )
-	// closer to 1 = more initialPopulation
-	initialPopulation = 2
-
-	liveSymbol = "$"
-	deadSymbol = " "
-)
-
 func rebuildWorld(prevWorld WorldT) WorldT {
 	newWorld := WorldT{}
+	var wg sync.WaitGroup
 
-	var wg = sync.WaitGroup{}
 	for x := range prevWorld {
 		wg.Add(1)
 
 		go func(x int) {
-
 			for y, isALiveSell := range prevWorld[x] {
 				if isALiveSell {
 					newWorld[x][y] = SellT(isALiveSell.canStayAlive(x, y, prevWorld))
@@ -40,16 +26,20 @@ func rebuildWorld(prevWorld WorldT) WorldT {
 	}
 	wg.Wait()
 
+	if detectRepeatedPatterns && isRepeatedPattern(newWorld) {
+		newWorld = injectSells(newWorld)
+	}
+
 	return newWorld
 }
 
 func main() {
 	world := genesis()
+	draw(world)
 
 	for {
-		time.Sleep(delay)
-
 		world = rebuildWorld(world)
+		time.Sleep(delay)
 		draw(world)
 	}
 }

@@ -2,52 +2,66 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
+	"sync"
+	"time"
 )
 
 func clearTerminal() {
-	fmt.Print("\033[H\033[2J")
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
 }
+
 func startFromTopTerminal() {
-	fmt.Print("\033[H")
+	fmt.Fprint(os.Stdout, "\033[H")
 }
 
-var rendredTimes int
+// ---
 
-func getCurrentPopulation(world WorldT) int {
-	sells := 0
+var (
+	rendredTimes int
+	startedTime  time.Time
+	once         sync.Once
 
-	for _, i := range world {
-		for _, j := range i {
-			if j {
-				sells++
-			}
-		}
+	framePerSecond int
+)
+
+func frameTicker() {
+	lastRendre := rendredTimes
+
+	for {
+		time.Sleep(time.Second)
+		framePerSecond = rendredTimes - lastRendre
+		lastRendre = rendredTimes
 	}
-
-	return sells
 }
+
+func init() { clearTerminal(); go frameTicker(); startedTime = time.Now() }
 
 func draw(world WorldT) {
 	startFromTopTerminal()
 	rendredTimes++
 
 	{
-		fmt.Println("rendredTimes: ", rendredTimes)
-		fmt.Println("population: ", getCurrentPopulation(world))
-		fmt.Println()
+		fmt.Println("rendredTimes     : ", rendredTimes)
+		fmt.Println("population       : ", world.countLives())
+		fmt.Println("runtime          : ", time.Since(startedTime))
+		fmt.Println("frame per second : ", framePerSecond)
+		fmt.Print("\n")
 	}
 
 	for _, i := range world {
 		for _, j := range i {
-			symbol := deadSymbol
 			if j {
-				symbol = liveSymbol
+				fmt.Print(liveSellColor, liveSellSymbol)
+			} else {
+				fmt.Print(deadSellColor, deadSellSymbol)
 			}
-
-			fmt.Print(symbol)
 		}
 
-		fmt.Print("             |")
-		fmt.Println()
+		fmt.Print("\n")
 	}
+	fmt.Printf("%s[%dm", "\x1b", 0)
 }

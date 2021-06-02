@@ -6,6 +6,8 @@ import (
 	"os/exec"
 	"sync"
 	"time"
+
+	fun_stuff "github.com/mreza0100/golog/fun_stuff"
 )
 
 func clearTerminal() {
@@ -16,6 +18,10 @@ func clearTerminal() {
 
 func startFromTopTerminal() {
 	fmt.Fprint(os.Stdout, "\033[H")
+}
+
+func clearCurrentLine() {
+	fmt.Printf("%c[2K", 27)
 }
 
 // ---
@@ -40,22 +46,22 @@ func frameTicker() {
 
 func getRuntime() string {
 	since := time.Since(startedTime)
-	return fmt.Sprintf("%vH : %vM : %vS   ", int(since.Hours()), int(since.Minutes())%60, int(since.Seconds())%60)
+	return fmt.Sprintf("%vH : %vM : %vS", int(since.Hours()), int(since.Minutes())%60, int(since.Seconds())%60)
 }
 
 func init() { clearTerminal(); go frameTicker(); startedTime = time.Now() }
 
 func draw(world WorldT) {
 	startFromTopTerminal()
-
 	rendredTimes++
 
 	{
-		fmt.Println("rendredTimes     : ", rendredTimes)
-		fmt.Println("population       : ", world.countLives())
-		fmt.Println("runtime          : ", getRuntime())
-		fmt.Println("frame per second : ", framePerSecond)
-		fmt.Print("\n")
+		fmt.Printf(fun_stuff.ColorGreen)
+
+		fmt.Printf("%c[2K%v : %v\n", 27, "rendredTimes    ", rendredTimes)
+		fmt.Printf("%c[2K%v : %v\n", 27, "population      ", world.countLives())
+		fmt.Printf("%c[2K%v : %v\n", 27, "runtime         ", getRuntime())
+		fmt.Printf("%c[2K%v : %vfps\n", 27, "frame per second", framePerSecond)
 	}
 
 	for _, i := range world {
@@ -66,8 +72,8 @@ func draw(world WorldT) {
 				fmt.Print(deadSellColor, deadSellSymbol)
 			}
 		}
-
 		fmt.Print("\n")
 	}
+
 	fmt.Printf("%s[%dm", "\x1b", 0)
 }

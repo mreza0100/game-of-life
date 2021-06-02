@@ -8,7 +8,7 @@ import (
 const (
 	// world sizes
 	height = 30
-	width  = 140
+	width  = 50
 
 	// deley between frames
 	delay = 0
@@ -19,7 +19,7 @@ const (
 
 	// size of "detectRepeatedPatterns" for detecting
 	// repeated patterns more number = slower render
-	memoryPatternSize = 10
+	memoryPatternSize = 5
 	// prevent live block in world
 	detectRepeatedPatterns = true
 

@@ -17,7 +17,7 @@ func rebuildWorld(prevWorld WorldT) WorldT {
 				if isALiveSell {
 					newWorld[x][y] = SellT(isALiveSell.canStayAlive(x, y, prevWorld))
 				} else {
-					newWorld[x][y] = SellT(isALiveSell.canBeAlive(x, y, prevWorld))
+					newWorld[x][y] = SellT(isALiveSell.canBackToLife(x, y, prevWorld))
 				}
 			}
 

@@ -3,7 +3,7 @@ package main
 type WorldT [height][width]SellT
 
 func isInRange(position int, Range int) bool {
-	return position < Range && position >= 0
+	return position >= 0 && position < Range
 }
 
 func (w WorldT) isALiveSell(x, y int) int {
